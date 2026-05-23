@@ -1,7 +1,8 @@
 # Etapa 1: Dependencias
 FROM eclipse-temurin:17-jdk AS dependencies
 WORKDIR /app
-COPY pom.xml mvnw .mvn ./
+COPY pom.xml mvnw ./
+COPY .mvn ./.mvn
 RUN ./mvnw dependency:go-offline -B
 
 # Etapa 2: Tests
