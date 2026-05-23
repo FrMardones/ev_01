@@ -1,0 +1,25 @@
+# Etapa 1: Dependencias
+FROM eclipse-temurin:17-jdk AS dependencies
+WORKDIR /app
+COPY pom.xml ./
+RUN mvn dependency:go-offline -B || true
+
+# Etapa 2: Tests
+FROM eclipse-temurin:17-jdk AS test
+WORKDIR /app
+COPY . .
+RUN mvn test -B
+
+# Etapa 3: Compilación
+FROM eclipse-temurin:17-jdk AS compile
+WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
+
+# Etapa 4: Producción (imagen liviana)
+FROM eclipse-temurin:17-jre AS prod
+WORKDIR /app
+COPY --from=compile /app/target/*.jar /app.jar
+EXPOSE 8080
+USER 1000
+CMD ["java", "-jar", "/app.jar"]

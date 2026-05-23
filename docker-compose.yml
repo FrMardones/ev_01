@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ep02-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - backend
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: "2.0"
+        reservations:
+          memory: 1G
+          cpus: "1.0"
+
+  db:
+    image: mysql:8.0
+    container_name: ep02-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: ep02db
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: "1.0"
+        reservations:
+          memory: 512M
+          cpus: "0.5"
+
+volumes:
+  db-data:
+
+networks:
+  backend:
+    driver: bridge
