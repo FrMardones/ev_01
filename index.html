@@ -67,7 +67,6 @@ pre {
 <h2>Roadmap sugerido para alcanzar el 100%</h2>
 <ol>
 <li>Multi-stage build</li>
-<li>Imágenes optimizadas</li>
 </ol>
 <hr>
 <h2>Cómo resolver los GAPs</h2>
@@ -203,7 +202,7 @@ COPY --from=build /app/dist /usr/share/nginx/html
 <tr>
 <td>IE1</td>
 <td>Imágenes optimizadas</td>
-<td>⚠️ MEJORA PENDIENTE</td>
+<td>✅ IMPLEMENTADO</td>
 </tr>
 <tr>
 <td>IE1</td>
@@ -320,18 +319,15 @@ COPY --from=build /app/dist /usr/share/nginx/html
 </ul>
 <h3>IE1 - Imágenes optimizadas</h3>
 <ul>
-<li><p>Estado: ⚠️ MEJORA PENDIENTE</p>
+<li><p>Estado: ✅ IMPLEMENTADO</p>
 </li>
-<li><p>Detalle: No usa imágenes optimizadas</p>
+<li><p>Detalle: Usa imágenes optimizadas</p>
 </li>
 <li><p>Evidencia:</p>
 </li>
 </ul>
 <pre><code>Dockerfile revisado
 </code></pre>
-<ul>
-<li>Qué falta: Usar alpine/slim/distroless</li>
-</ul>
 <h3>IE1 - Docker build funciona</h3>
 <ul>
 <li><p>Estado: ✅ IMPLEMENTADO</p>

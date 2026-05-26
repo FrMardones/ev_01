@@ -13,7 +13,6 @@ Las siguientes mejoras ayudarán a incrementar la madurez DevOps del repositorio
 ## Roadmap sugerido para alcanzar el 100%
 
 1. Multi-stage build
-2. Imágenes optimizadas
 
 ---
 
@@ -85,7 +84,7 @@ COPY --from=build /app/dist /usr/share/nginx/html
 |---|---|---|
 | IE1 | Dockerfile existe | ✅ IMPLEMENTADO |
 | IE1 | Multi-stage build | ⚠️ MEJORA PENDIENTE |
-| IE1 | Imágenes optimizadas | ⚠️ MEJORA PENDIENTE |
+| IE1 | Imágenes optimizadas | ✅ IMPLEMENTADO |
 | IE1 | Docker build funciona | ✅ IMPLEMENTADO |
 | IE4 | Pipeline GitHub Actions | ✅ IMPLEMENTADO |
 | IE2 | Pipeline ejecuta tests | ✅ IMPLEMENTADO |
@@ -135,15 +134,13 @@ Dockerfile revisado
 
 ### IE1 - Imágenes optimizadas
 
-- Estado: ⚠️ MEJORA PENDIENTE
-- Detalle: No usa imágenes optimizadas
+- Estado: ✅ IMPLEMENTADO
+- Detalle: Usa imágenes optimizadas
 
 - Evidencia:
 ```
 Dockerfile revisado
 ```
-
-- Qué falta: Usar alpine/slim/distroless
 
 
 ### IE1 - Docker build funciona
