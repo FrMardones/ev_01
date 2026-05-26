@@ -4,46 +4,45 @@
 
 Las siguientes mejoras ayudarán a incrementar la madurez DevOps del repositorio.
 
-### 🟠 Prioridad media
+### 🔴 Alta prioridad
 
-- Multi-stage build
+- Docker build funciona
 
 ---
 
 ## Roadmap sugerido para alcanzar el 100%
 
-1. Multi-stage build
+1. Docker build funciona
 
 ---
 
 ## Cómo resolver los GAPs
 
-### Multi-stage build
+### Docker build funciona
 
-Impacto: La imagen Docker puede ser demasiado pesada.
+Impacto: El contenedor no puede construirse correctamente.
 
 #### Cómo resolver
 
-- Separar etapa build/runtime
-- Usar FROM ... AS build
+- Validar sintaxis Dockerfile
+- Ejecutar docker build localmente
+- Revisar COPY y CMD
 
 #### Ejemplo
 
 ```
 
-FROM node:20 AS build
+FROM node:20-alpine
 
 WORKDIR /app
 
-COPY . .
+COPY package*.json ./
 
 RUN npm install
 
-RUN npm run build
+COPY . .
 
-FROM nginx:alpine
-
-COPY --from=build /app/dist /usr/share/nginx/html
+CMD ["npm","start"]
 
 ```
 
@@ -83,9 +82,9 @@ COPY --from=build /app/dist /usr/share/nginx/html
 | IE | Evaluación | Estado |
 |---|---|---|
 | IE1 | Dockerfile existe | ✅ IMPLEMENTADO |
-| IE1 | Multi-stage build | ⚠️ MEJORA PENDIENTE |
+| IE1 | Multi-stage build | ✅ IMPLEMENTADO |
 | IE1 | Imágenes optimizadas | ✅ IMPLEMENTADO |
-| IE1 | Docker build funciona | ✅ IMPLEMENTADO |
+| IE1 | Docker build funciona | ⚠️ MEJORA PENDIENTE |
 | IE4 | Pipeline GitHub Actions | ✅ IMPLEMENTADO |
 | IE2 | Pipeline ejecuta tests | ✅ IMPLEMENTADO |
 | IE3 | SonarCloud/Snyk | ✅ IMPLEMENTADO |
@@ -121,15 +120,13 @@ Dockerfile
 
 ### IE1 - Multi-stage build
 
-- Estado: ⚠️ MEJORA PENDIENTE
-- Detalle: No usa multi-stage
+- Estado: ✅ IMPLEMENTADO
+- Detalle: Usa multi-stage
 
 - Evidencia:
 ```
 Dockerfile revisado
 ```
-
-- Qué falta: Agregar multi-stage
 
 
 ### IE1 - Imágenes optimizadas
@@ -145,13 +142,32 @@ Dockerfile revisado
 
 ### IE1 - Docker build funciona
 
-- Estado: ✅ IMPLEMENTADO
-- Detalle: Docker build exitoso
+- Estado: ⚠️ MEJORA PENDIENTE
+- Detalle: Docker build falló
 
 - Evidencia:
 ```
--
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 349B 0.1s done
+#1 DONE 0.1s
+
+#2 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-alpine
+#3 DONE 0.5s
+
+#4 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk
+#4 DONE 0.5s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 
 ```
+
+- Qué falta: Corregir Docker build
 
 
 ### IE4 - Pipeline GitHub Actions

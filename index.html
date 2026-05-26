@@ -59,39 +59,38 @@ pre {
 <h1>DEVOPS CONTINUOUS FEEDBACK</h1>
 <h2>Resumen ejecutivo</h2>
 <p>Las siguientes mejoras ayudarán a incrementar la madurez DevOps del repositorio.</p>
-<h3>🟠 Prioridad media</h3>
+<h3>🔴 Alta prioridad</h3>
 <ul>
-<li>Multi-stage build</li>
+<li>Docker build funciona</li>
 </ul>
 <hr>
 <h2>Roadmap sugerido para alcanzar el 100%</h2>
 <ol>
-<li>Multi-stage build</li>
+<li>Docker build funciona</li>
 </ol>
 <hr>
 <h2>Cómo resolver los GAPs</h2>
-<h3>Multi-stage build</h3>
-<p>Impacto: La imagen Docker puede ser demasiado pesada.</p>
+<h3>Docker build funciona</h3>
+<p>Impacto: El contenedor no puede construirse correctamente.</p>
 <h4>Cómo resolver</h4>
 <ul>
-<li>Separar etapa build/runtime</li>
-<li>Usar FROM ... AS build</li>
+<li>Validar sintaxis Dockerfile</li>
+<li>Ejecutar docker build localmente</li>
+<li>Revisar COPY y CMD</li>
 </ul>
 <h4>Ejemplo</h4>
 <pre><code>
-FROM node:20 AS build
+FROM node:20-alpine
 
 WORKDIR /app
 
-COPY . .
+COPY package*.json ./
 
 RUN npm install
 
-RUN npm run build
+COPY . .
 
-FROM nginx:alpine
-
-COPY --from=build /app/dist /usr/share/nginx/html
+CMD [&quot;npm&quot;,&quot;start&quot;]
 </code></pre>
 <hr>
 <h2>Tabla evaluación</h2>
@@ -197,7 +196,7 @@ COPY --from=build /app/dist /usr/share/nginx/html
 <tr>
 <td>IE1</td>
 <td>Multi-stage build</td>
-<td>⚠️ MEJORA PENDIENTE</td>
+<td>✅ IMPLEMENTADO</td>
 </tr>
 <tr>
 <td>IE1</td>
@@ -207,7 +206,7 @@ COPY --from=build /app/dist /usr/share/nginx/html
 <tr>
 <td>IE1</td>
 <td>Docker build funciona</td>
-<td>✅ IMPLEMENTADO</td>
+<td>⚠️ MEJORA PENDIENTE</td>
 </tr>
 <tr>
 <td>IE4</td>
@@ -305,18 +304,15 @@ COPY --from=build /app/dist /usr/share/nginx/html
 </code></pre>
 <h3>IE1 - Multi-stage build</h3>
 <ul>
-<li><p>Estado: ⚠️ MEJORA PENDIENTE</p>
+<li><p>Estado: ✅ IMPLEMENTADO</p>
 </li>
-<li><p>Detalle: No usa multi-stage</p>
+<li><p>Detalle: Usa multi-stage</p>
 </li>
 <li><p>Evidencia:</p>
 </li>
 </ul>
 <pre><code>Dockerfile revisado
 </code></pre>
-<ul>
-<li>Qué falta: Agregar multi-stage</li>
-</ul>
 <h3>IE1 - Imágenes optimizadas</h3>
 <ul>
 <li><p>Estado: ✅ IMPLEMENTADO</p>
@@ -330,15 +326,35 @@ COPY --from=build /app/dist /usr/share/nginx/html
 </code></pre>
 <h3>IE1 - Docker build funciona</h3>
 <ul>
-<li><p>Estado: ✅ IMPLEMENTADO</p>
+<li><p>Estado: ⚠️ MEJORA PENDIENTE</p>
 </li>
-<li><p>Detalle: Docker build exitoso</p>
+<li><p>Detalle: Docker build falló</p>
 </li>
 <li><p>Evidencia:</p>
 </li>
 </ul>
-<pre><code>-
+<pre><code>#0 building with &quot;default&quot; instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 349B 0.1s done
+#1 DONE 0.1s
+
+#2 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-alpine
+#3 DONE 0.5s
+
+#4 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk
+#4 DONE 0.5s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 
 </code></pre>
+<ul>
+<li>Qué falta: Corregir Docker build</li>
+</ul>
 <h3>IE4 - Pipeline GitHub Actions</h3>
 <ul>
 <li><p>Estado: ✅ IMPLEMENTADO</p>
