@@ -150,21 +150,20 @@ Dockerfile revisado
 #0 building with "default" instance using docker driver
 
 #1 [internal] load build definition from Dockerfile
-#1 transferring dockerfile: 349B 0.1s done
-#1 DONE 0.1s
+#1 transferring dockerfile: 301B done
+#1 DONE 0.0s
 
 #2 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
 #2 DONE 0.0s
 
-#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-alpine
-#3 DONE 0.5s
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk
+#3 ...
 
-#4 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk
-#4 DONE 0.5s
+#4 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-alpine
+#4 DONE 0.3s
 
-#5 [internal] load .dockerignore
-#5 transferring context: 2B done
-#5 
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk
+#3 DONE
 ```
 
 - Qué falta: Corregir Docker build
