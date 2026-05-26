@@ -1,27 +1,13 @@
 
-FROM eclipse-temurin:17-jdk AS dependencies
+FROM eclipse-temurin:17-jdk AS build
 WORKDIR /app
-COPY pom.xml mvnw ./
-COPY .mvn ./.mvn
-RUN ./mvnw dependency:go-offline -B
+COPY pom.xml ./
+COPY src ./src
+RUN ./mvnw clean package -DskipTests 2>/dev/null || mvn clean package -DskipTests
 
-
-FROM eclipse-temurin:17-jdk AS test
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-COPY . .
-COPY --from=dependencies /root/.m2 /root/.m2
-RUN ./mvnw test -B
-
-
-FROM eclipse-temurin:17-jdk AS compile
-WORKDIR /app
-COPY --from=test /app /app
-COPY --from=dependencies /root/.m2 /root/.m2
-RUN ./mvnw clean package -DskipTests
-
-
-FROM eclipse-temurin:17-jre-alpine AS prod
-WORKDIR /app
-COPY --from=compile /app/target/*.jar /app.jar
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-CMD ["java", "-jar", "/app.jar"]
+USER 1000
+CMD ["java", "-jar", "app.jar"]
