@@ -59,39 +59,6 @@ pre {
 <h1>DEVOPS CONTINUOUS FEEDBACK</h1>
 <h2>Resumen ejecutivo</h2>
 <p>Las siguientes mejoras ayudarán a incrementar la madurez DevOps del repositorio.</p>
-<h3>🔴 Alta prioridad</h3>
-<ul>
-<li>Docker build funciona</li>
-</ul>
-<hr>
-<h2>Roadmap sugerido para alcanzar el 100%</h2>
-<ol>
-<li>Docker build funciona</li>
-</ol>
-<hr>
-<h2>Cómo resolver los GAPs</h2>
-<h3>Docker build funciona</h3>
-<p>Impacto: El contenedor no puede construirse correctamente.</p>
-<h4>Cómo resolver</h4>
-<ul>
-<li>Validar sintaxis Dockerfile</li>
-<li>Ejecutar docker build localmente</li>
-<li>Revisar COPY y CMD</li>
-</ul>
-<h4>Ejemplo</h4>
-<pre><code>
-FROM node:20-alpine
-
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
-COPY . .
-
-CMD [&quot;npm&quot;,&quot;start&quot;]
-</code></pre>
 <hr>
 <h2>Tabla evaluación</h2>
 <table>
@@ -206,7 +173,7 @@ CMD [&quot;npm&quot;,&quot;start&quot;]
 <tr>
 <td>IE1</td>
 <td>Docker build funciona</td>
-<td>⚠️ MEJORA PENDIENTE</td>
+<td>✅ IMPLEMENTADO</td>
 </tr>
 <tr>
 <td>IE4</td>
@@ -326,34 +293,15 @@ CMD [&quot;npm&quot;,&quot;start&quot;]
 </code></pre>
 <h3>IE1 - Docker build funciona</h3>
 <ul>
-<li><p>Estado: ⚠️ MEJORA PENDIENTE</p>
+<li><p>Estado: ✅ IMPLEMENTADO</p>
 </li>
-<li><p>Detalle: Docker build falló</p>
+<li><p>Detalle: Docker build exitoso</p>
 </li>
 <li><p>Evidencia:</p>
 </li>
 </ul>
-<pre><code>#0 building with &quot;default&quot; instance using docker driver
-
-#1 [internal] load build definition from Dockerfile
-#1 transferring dockerfile: 301B done
-#1 DONE 0.0s
-
-#2 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
-#2 DONE 0.0s
-
-#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk
-#3 ...
-
-#4 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-alpine
-#4 DONE 0.3s
-
-#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk
-#3 DONE
+<pre><code>-
 </code></pre>
-<ul>
-<li>Qué falta: Corregir Docker build</li>
-</ul>
 <h3>IE4 - Pipeline GitHub Actions</h3>
 <ul>
 <li><p>Estado: ✅ IMPLEMENTADO</p>

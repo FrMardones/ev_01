@@ -4,48 +4,6 @@
 
 Las siguientes mejoras ayudarán a incrementar la madurez DevOps del repositorio.
 
-### 🔴 Alta prioridad
-
-- Docker build funciona
-
----
-
-## Roadmap sugerido para alcanzar el 100%
-
-1. Docker build funciona
-
----
-
-## Cómo resolver los GAPs
-
-### Docker build funciona
-
-Impacto: El contenedor no puede construirse correctamente.
-
-#### Cómo resolver
-
-- Validar sintaxis Dockerfile
-- Ejecutar docker build localmente
-- Revisar COPY y CMD
-
-#### Ejemplo
-
-```
-
-FROM node:20-alpine
-
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
-COPY . .
-
-CMD ["npm","start"]
-
-```
-
 ---
 
 ## Tabla evaluación
@@ -84,7 +42,7 @@ CMD ["npm","start"]
 | IE1 | Dockerfile existe | ✅ IMPLEMENTADO |
 | IE1 | Multi-stage build | ✅ IMPLEMENTADO |
 | IE1 | Imágenes optimizadas | ✅ IMPLEMENTADO |
-| IE1 | Docker build funciona | ⚠️ MEJORA PENDIENTE |
+| IE1 | Docker build funciona | ✅ IMPLEMENTADO |
 | IE4 | Pipeline GitHub Actions | ✅ IMPLEMENTADO |
 | IE2 | Pipeline ejecuta tests | ✅ IMPLEMENTADO |
 | IE3 | SonarCloud/Snyk | ✅ IMPLEMENTADO |
@@ -142,31 +100,13 @@ Dockerfile revisado
 
 ### IE1 - Docker build funciona
 
-- Estado: ⚠️ MEJORA PENDIENTE
-- Detalle: Docker build falló
+- Estado: ✅ IMPLEMENTADO
+- Detalle: Docker build exitoso
 
 - Evidencia:
 ```
-#0 building with "default" instance using docker driver
-
-#1 [internal] load build definition from Dockerfile
-#1 transferring dockerfile: 301B done
-#1 DONE 0.0s
-
-#2 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
-#2 DONE 0.0s
-
-#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk
-#3 ...
-
-#4 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-alpine
-#4 DONE 0.3s
-
-#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk
-#3 DONE
+-
 ```
-
-- Qué falta: Corregir Docker build
 
 
 ### IE4 - Pipeline GitHub Actions
